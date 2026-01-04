@@ -17,7 +17,6 @@ venv/
 # Flask uploads / temp folders
 /tmp/
 tmp/
-*.gif
 
 # =========================
 # Node / React / Vite
