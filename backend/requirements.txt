@@ -1,0 +1,8 @@
+moviepy
+pillow
+imageio
+imageio-ffmpeg
+numpy
+flask
+flask-cors
+werkzeug

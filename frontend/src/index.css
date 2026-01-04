@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* app defaults — tweak as you like */
+:root {
+  color-scheme: light dark;
+  --bg: rgba(6, 6, 7, 0.6);
+  --glass: rgba(255,255,255,0.06);
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  @apply bg-gradient-to-br from-white/30 to-white/5 dark:from-black/20 dark:to-black/40;
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}

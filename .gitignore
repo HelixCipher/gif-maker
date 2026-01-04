@@ -1,0 +1,81 @@
+# =========================
+# Python / Flask
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+*.egg-info/
+*.env
+.env.*
+venv/
+.envrc
+*.log
+
+# Flask uploads / temp folders
+/tmp/
+tmp/
+*.gif
+
+# =========================
+# Node / React / Vite
+# =========================
+node_modules/
+dist/
+dist-ssr
+build/
+.vite/
+.npm/
+.nyc_output/
+*.tsbuildinfo
+*.local
+
+# Local env vars
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Editor/IDE files
+.vscode/*
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.DS_Store
+Thumbs.db
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# =========================
+# Media & output (optional)
+# =========================
+# Keep source images/videos but ignore generated outputs
+backend/tmp/
+frontend/public/uploads/
+*.mp4
+*.webm
+*.mov
+
+# Logs and debug outputs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.bak
+*.backup
+
+# OS-specific
+.DS_Store
+*.db
+*.pid
