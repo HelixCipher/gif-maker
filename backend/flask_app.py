@@ -78,7 +78,6 @@ def process_video_job(job_id, params):
         loops = int(params.get('loops', 0))
         loop_forever = bool(params.get('loop_forever', False))
         bounce = bool(params.get('bounce', False))
-        max_seconds = float(params.get('max_seconds', 12.0))
 
         # Probe video duration
         try:
@@ -90,15 +89,14 @@ def process_video_job(job_id, params):
             ], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             total_dur = float(p.stdout.strip())
         except Exception:
-            total_dur = max_seconds
+            total_dur = 60.0  # fallback if probe fails
 
-        # Determine segment
+        # Determine segment based on user's trim settings
         if end is None:
-            end_time = min(total_dur, start + max_seconds)
+            end_time = total_dur
         else:
             end_time = min(end, total_dur)
         seg_len = max(0.1, end_time - start)
-        seg_len = min(seg_len, max_seconds)
 
         # Temporary directory
         tmpdir = tempfile.mkdtemp(prefix=f"job_{job_id}_")
@@ -285,8 +283,7 @@ def generate_async():
         "speed": request.form.get("speed", 1.0),
         "loops": request.form.get("loops", 0),
         "loop_forever": request.form.get("loop_forever", "false").lower() == "true",
-        "bounce": request.form.get("bounce", "false").lower() == "true",
-        "max_seconds": request.form.get("max_seconds", 12.0)
+        "bounce": request.form.get("bounce", "false").lower() == "true"
     }
 
     job_id = uuid.uuid4().hex
