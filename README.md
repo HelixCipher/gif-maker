@@ -1,7 +1,7 @@
 # GIF Maker
 
 <p align="center">
-  <img src="URL" width="800" alt="Project Project_Demonstration_GIF.gif"/>
+  <img src="https://github.com/HelixCipher/gif-maker/blob/main/Project_Demonstration_GIF.gif" width="800" alt="Project Project_Demonstration_GIF.gif"/>
 </p>
 
 A web-based tool to generate GIFs from images, multiple images, or videos.  
