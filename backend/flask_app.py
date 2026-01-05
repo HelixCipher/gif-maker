@@ -210,6 +210,12 @@ def generate():
     height = get_int("height", None)
     zoom = get_float("zoom", 1.12)
     pan = request.form.get("pan", "diagonal")
+    
+    # Loop controls
+    loops = get_int("loops", 0)
+    loop_forever = request.form.get("loop_forever", "false").lower() == "true"
+    # Note: loop_forever in GIF means loop=0, finite loops means loop=N
+    loop_value = 0 if loop_forever else loops
 
     files = request.files.getlist("files[]")
     if not files:
@@ -230,11 +236,11 @@ def generate():
         # call the right function
         if mode == "images":
             size = (width, height) if (width and height) else None
-            images_to_gif(saved_paths, out_gif, fps=fps, loop=0, size=size)
+            images_to_gif(saved_paths, out_gif, fps=fps, loop=loop_value, size=size)
         elif mode == "single":
             first = saved_paths[0]
             tgt_size = (width or 640, height or 360)
-            single_image_to_gif_kenburns(first, out_gif, duration=duration, fps=fps, target_size=tgt_size, zoom=zoom, pan_path=pan)
+            single_image_to_gif_kenburns(first, out_gif, duration=duration, fps=fps, target_size=tgt_size, zoom=zoom, pan_path=pan, loop=loop_value)
         else:
             return jsonify({"error": f"Unknown mode: {mode}"}), 400
 
