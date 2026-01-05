@@ -13,8 +13,9 @@ Built with **React + Vite** for the frontend and **Flask** for the backend.
 
 - Convert a single image into a GIF with Ken Burns effect.  
 - Convert multiple images into a GIF.  
-- Convert videos into GIFs.  
-- Adjustable parameters: FPS, duration, width, height, zoom, pan.  
+- Convert videos into GIFs or MP4s.
+- Adjustable parameters: FPS, duration, width, height, zoom, pan, speed, loops, bounce, output format.
+- Trim video previews before generating output. 
 - Works in modern browsers with a simple GUI.
 
 ---
@@ -53,7 +54,7 @@ pip install flask flask-cors moviepy imageio-ffmpeg pillow numpy python-dotenv t
 python backend/flask_app.py
 ```
 
-* The backend will be available at http://localhost:5000.
+- The backend will be available at http://localhost:5000.
 
 ---
 
@@ -85,21 +86,23 @@ npm run dev
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 ```
-* Add Tailwind directives to index.css if desired.
+- Add Tailwind directives to index.css if desired.
 
 ---
 
 ## Usage
 
-* Open the frontend in your browser.
+- Open the frontend in your browser.
 
-* Upload a file (image, multiple images, or video).
+- Upload a file (image, multiple images, or video).
 
-* Set parameters (FPS, duration, width/height, zoom, pan) if needed.
+- For videos, trim start and end using the preview sliders.
 
-* Click Generate GIF.
+- Set parameters (FPS, duration, width/height, zoom, pan, speed, loops, bounce, output format) if needed.
 
-* Download the resulting GIF.
+- Click Generate GIF or Generate (async).
+
+- Download the resulting GIF or MP4.
 
 
 ### API Endpoints
@@ -122,18 +125,44 @@ npx tailwindcss init -p
 **Returns:** GIF file (`image/gif`)
 
 
+### POST /api/generate_async
+
+**Form Data:**
+
+| Field        | Type   | Description                                         |
+|--------------|--------|-----------------------------------------------------|
+| files[]      | file   | One video file                                      |
+| start        | float  | Start time in seconds                               |
+| end          | float  | End time in seconds                                 |
+| fps          | int    | Frames per second                                   |
+| width        | int    | Output width                                        |
+| format       | string | `gif` or `mp4`                                     |
+| speed        | float  | Playback speed multiplier                           |
+| loops        | int    | Number of loops for GIF                             |
+| loop_forever | bool   | Loop GIF indefinitely                               |
+| bounce       | bool   | Apply bounce effect to GIF                          |
+| max_seconds  | float  | Maximum length in seconds                            |
+
+**Returns:** JSON with `job_id`. Poll `/api/job_status/<job_id>` for progress and `/api/job_output/<job_id>` to download output.
+
 
 
 ---
 
 ## Notes / Troubleshooting
 
-* Ensure you’re using the same Python environment where moviepy and imageio-ffmpeg are installed.
+- Ensure you’re using the same Python environment where moviepy and imageio-ffmpeg are installed.
 
-* For video-to-GIF conversion, FFmpeg must be installed and on your PATH.
+- For video-to-GIF conversion, FFmpeg must be installed and on your PATH.
 
-* Large videos or many images may produce big GIFs and take time to generate.
+- For GIF bounce effect, install gifsicle.
 
-* CORS is enabled for development. Lock it down in production.
+- Large videos or many images may produce big GIFs and take time to generate.
+
+- Video trimming is supported via the preview sliders before generation.
+
+- Output can now be either GIF or MP4 for better performance on longer clips.
+
+- CORS is enabled for development. Lock it down in production.
 
 ---
