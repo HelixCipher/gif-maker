@@ -488,9 +488,12 @@ export default function GifMakerFrontend() {
                       <input type="number" value={fps} onChange={(e) => setFps(Number(e.target.value))} className="w-full mt-1 rounded-md p-1" />
                     </label>
 
-                    <label className="text-xs">Duration (s)
-                      <input type="number" value={duration} onChange={(e) => setDuration(Number(e.target.value))} className="w-full mt-1 rounded-md p-1" />
-                    </label>
+                    {/* Duration only for single image mode */}
+                    {mode === "single" && (
+                      <label className="text-xs">Duration (s)
+                        <input type="number" value={duration} onChange={(e) => setDuration(Number(e.target.value))} className="w-full mt-1 rounded-md p-1" />
+                      </label>
+                    )}
 
                     <label className="text-xs">Dimensions (preset)
                       <select value={dimensionPreset} onChange={(e)=>setDimensionPreset(e.target.value)} className="w-full mt-1 rounded-md p-1">
@@ -509,22 +512,29 @@ export default function GifMakerFrontend() {
                       </label>
                     </div>
 
-                    <label className="text-xs">Zoom
-                      <input step="0.01" type="number" value={zoom} onChange={(e) => setZoom(Number(e.target.value))} className="w-full mt-1 rounded-md p-1" />
-                    </label>
-                    <label className="text-xs">Pan
-                      <select value={pan} onChange={(e) => setPan(e.target.value)} className="w-full mt-1 rounded-md p-1">
-                        <option value="diagonal">Diagonal</option>
-                        <option value="center_out">Center out</option>
-                        <option value="left_to_right">Left to right</option>
-                        <option value="random">Random</option>
-                      </select>
-                    </label>
+                    {/* Zoom and Pan only for single image mode */}
+                    {mode === "single" && (
+                      <>
+                        <label className="text-xs">Zoom
+                          <input step="0.01" type="number" value={zoom} onChange={(e) => setZoom(Number(e.target.value))} className="w-full mt-1 rounded-md p-1" />
+                        </label>
+                        <label className="text-xs">Pan
+                          <select value={pan} onChange={(e) => setPan(e.target.value)} className="w-full mt-1 rounded-md p-1">
+                            <option value="diagonal">Diagonal</option>
+                            <option value="center_out">Center out</option>
+                            <option value="left_to_right">Left to right</option>
+                            <option value="random">Random</option>
+                          </select>
+                        </label>
+                      </>
+                    )}
 
-                    {/* new: speed */}
-                    <label className="text-xs">Speed
-                      <input step="0.1" type="number" value={speed} onChange={(e) => setSpeed(Number(e.target.value))} className="w-full mt-1 rounded-md p-1" />
-                    </label>
+                    {/* Speed only for video mode */}
+                    {mode === "video" && (
+                      <label className="text-xs">Speed
+                        <input step="0.1" type="number" value={speed} onChange={(e) => setSpeed(Number(e.target.value))} className="w-full mt-1 rounded-md p-1" />
+                      </label>
+                    )}
 
                     {/* loops preset + manual input */}
                     <label className="text-xs">Loops (preset)
@@ -546,21 +556,23 @@ export default function GifMakerFrontend() {
                       <span className="text-xs">Loop forever</span>
                     </div>
 
-                    <div className="flex items-center gap-2">
-                      <input type="checkbox" checked={bounce} onChange={(e)=>setBounce(e.target.checked)} />
-                      <span className="text-xs">Bounce</span>
-                    </div>
+                    {/* Bounce only for video mode */}
+                    {mode === "video" && (
+                      <div className="flex items-center gap-2">
+                        <input type="checkbox" checked={bounce} onChange={(e)=>setBounce(e.target.checked)} />
+                        <span className="text-xs">Bounce</span>
+                      </div>
+                    )}
 
-                    <label className="text-xs">Output format
-                      <select value={outFormat} onChange={(e)=>setOutFormat(e.target.value)} className="w-full mt-1 rounded-md p-1">
-                        <option value="gif">GIF</option>
-                        <option value="mp4">MP4 (recommended)</option>
-                      </select>
-                    </label>
-
-                    <label className="text-xs">Max seconds (server cap)
-                      <input type="number" value={maxSeconds} onChange={(e)=>setMaxSeconds(Number(e.target.value))} className="w-full mt-1 rounded-md p-1" />
-                    </label>
+                    {/* Output format only for video mode */}
+                    {mode === "video" && (
+                      <label className="text-xs">Output format
+                        <select value={outFormat} onChange={(e)=>setOutFormat(e.target.value)} className="w-full mt-1 rounded-md p-1">
+                          <option value="gif">GIF</option>
+                          <option value="mp4">MP4 (recommended)</option>
+                        </select>
+                      </label>
+                    )}
 
                   </div>
                 </div>
