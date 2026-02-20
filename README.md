@@ -11,11 +11,16 @@ Built with **React + Vite** for the frontend and **Flask** for the backend.
 
 ## Features
 
-- Convert a single image into a GIF with Ken Burns effect.  
-- Convert multiple images into a GIF.  
+- Convert a single image into a GIF with Ken Burns effect.
+
+- Convert multiple images into a GIF.
+
 - Convert videos into GIFs or MP4s.
+
 - Adjustable parameters: FPS, duration, width, height, zoom, pan, speed, loops, bounce, output format.
-- Trim video previews before generating output. 
+
+- Trim video previews before generating output.
+
 - Works in modern browsers with a simple GUI.
 
 ---
@@ -87,6 +92,48 @@ npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 ```
 - Add Tailwind directives to index.css if desired.
+
+---
+
+## Docker Setup (Recommended)
+
+The easiest way to run the project is using Docker Compose. This will set up both the frontend (nginx) and backend (Flask) containers.
+
+### Requirements
+
+- [Docker](https://www.docker.com/get-started)
+
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+### Quick Start
+
+```bash
+docker compose up
+```
+
+Then open **http://localhost** in your browser.
+
+### What It Does
+
+- **Frontend**: Built React app served via nginx on port 80.
+
+- **Backend**: Flask API running internally (not exposed to host).
+
+- API requests from the frontend are proxied through nginx to the backend.
+
+### Building Images
+
+To rebuild the images:
+
+```bash
+docker compose build
+```
+
+To stop the containers:
+
+```bash
+docker compose down
+```
 
 ---
 
@@ -186,7 +233,7 @@ Any reuse, redistribution, or derivative work **must** include:
 
 #### Example Attribution
 
-> This work is based on *one-persons-feature-is-another-persons-exploit* by `HelixCipher`.  
+> This work is based on *Gif Maker* by `HelixCipher`.  
 > Original source: https://github.com/HelixCipher/gif-maker  
 > Licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0).
 

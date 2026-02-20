@@ -1,0 +1,24 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: gifmaker-backend
+    networks:
+      - gifmaker-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: gifmaker-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - gifmaker-network
+
+networks:
+  gifmaker-network:
+    driver: bridge
